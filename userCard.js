@@ -43,12 +43,38 @@ class UserCard extends HTMLElement {
     constructor() {
         super(); // call the HTMLElement class we are extending
 
+        this.showInfo = true;
+
         this.attachShadow({mode: 'open'}); // Add shadow DOM
 
         this.shadowRoot.appendChild(template.content.cloneNode(true)); // use the shadow root, and refer to the template.
         
         this.shadowRoot.querySelector('h3').innerText = this.getAttribute('name');
-        this.shadowRoot.querySelector('img').src = this.getAttribute('avatar');
+        this.shadowRoot.querySelector('img').src = this.getAttribute('avatar');   
+    }
+
+    toggleInfo(){
+        this.showInfo = !this.showInfo;
+        const info = this.shadowRoot.querySelector('.info');
+        const toggleButton = this.shadowRoot.querySelector('#toggle-info');
+        if(this.showInfo)
+        {
+            info.style.display = 'block';
+            toggleButton.innerText = 'Hide details'
+        }
+        if(!this.showInfo)
+        {
+            info.style.display = 'none';
+            toggleButton.innerText = 'Show details'
+        }
+    }
+
+    connectedCallback(){
+        this.shadowRoot.querySelector('#toggle-info').addEventListener('click', () => this.toggleInfo()); //Add the event to the shadow DOM with the connected callback.
+    }
+
+    disconnectedCallback(){
+        this.shadowRoot.querySelector('#toggle-info').removeEventListener('click', () => this.toggleInfo()); //Remove the event from the shadow DOM with the connected callback.
     }
 }
 
