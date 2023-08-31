@@ -70,11 +70,11 @@ class UserCard extends HTMLElement {
     }
 
     connectedCallback(){
-        this.shadowRoot.querySelector('#toggle-info').addEventListener('click', () => this.toggleInfo()); //Add the event to the shadow DOM with the connected callback.
+        this.shadowRoot.querySelector('#toggle-info').addEventListener('click', () => this.toggleInfo()); //Add the event to the shadow DOM with the connectedCallback.
     }
 
     disconnectedCallback(){
-        this.shadowRoot.querySelector('#toggle-info').removeEventListener('click', () => this.toggleInfo()); //Remove the event from the shadow DOM with the connected callback.
+        this.shadowRoot.querySelector('#toggle-info').removeEventListener('click', () => this.toggleInfo()); //Remove the event from the shadow DOM with the disconnectedCallback.
     }
 }
 
